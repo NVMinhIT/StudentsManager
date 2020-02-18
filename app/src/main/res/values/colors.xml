@@ -1,0 +1,12 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <color name="colorPrimary">#4B738D</color>
+    <color name="colorPrimaryDark">#4B738D</color>
+    <color name="colorAccent">#D81B60</color>
+    <color name="color_white">#FFFFFF</color>
+    <color name="color_active">#C5C2C2</color>
+    <color name="color_error">@color/color_red</color>
+    <color name="color_red">#d50000</color>
+    <color name="color_progressbar">#4B738D</color>
+    <color name="color_gray">#E0E0E0</color>
+</resources>

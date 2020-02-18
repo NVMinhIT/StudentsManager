@@ -1,0 +1,47 @@
+<?xml version="1.0" encoding="utf-8"?>
+<resources>
+    <!--    size image -->
+
+
+    <!--text size-->
+    <dimen name="size_text_min">10sp</dimen>
+    <dimen name="size_text_x_min">14sp</dimen>
+    <dimen name="size_text_xx_min">16sp</dimen>
+    <dimen name="size_text_normal">18sp</dimen>
+    <dimen name="size_text_x_normal">20sp</dimen>
+    <dimen name="size_text_large">22sp</dimen>
+    <dimen name="size_text_x_large">28sp</dimen>
+
+    <!--padding-->
+    <dimen name="padding_micro">4dp</dimen>
+    <dimen name="padding_small">8dp</dimen>
+    <dimen name="padding_normal">16dp</dimen>
+    <dimen name="padding_large_small">32dp</dimen>
+    <dimen name="padding_large">40dp</dimen>
+
+    <!--margin left-->
+    <dimen name="margin_left_min">8dp</dimen>
+    <dimen name="margin_left_x_min">10dp</dimen>
+    <dimen name="margin_left_small">12dp</dimen>
+    <dimen name="margin_left_normal">18dp</dimen>
+    <dimen name="margin_left_x_normal">22dp</dimen>
+    <dimen name="margin_left_xx_normal">28dp</dimen>
+    <!--margin top-->
+    <dimen name="margin_top_min">6dp</dimen>
+    <dimen name="margin_top_small">8dp</dimen>
+    <dimen name="margin_top_x_small">10dp</dimen>
+    <dimen name="margin_top_normal">12dp</dimen>
+    <dimen name="margin_top_x_normal">16dp</dimen>
+    <dimen name="margin_top_xx_normal">18dp</dimen>
+    <dimen name="margin_top_large">22dp</dimen>
+    <dimen name="margin_top">40dp</dimen>
+    <!--    margin-->
+    <dimen name="margin_bottom_small">12dp</dimen>
+    <!--size icon-->
+    <dimen name="size_icon_small">18dp</dimen>
+    <dimen name="size_icon_normal">22dp</dimen>
+    <dimen name="size_icon_x_normal">28dp</dimen>
+    <dimen name="size_icon_xx_normal">32dp</dimen>
+    <dimen name="size_icon_large">48dp</dimen>
+    <dimen name="size_icon_max">100dp</dimen>
+</resources>

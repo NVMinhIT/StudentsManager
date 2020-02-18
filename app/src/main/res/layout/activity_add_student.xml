@@ -1,0 +1,150 @@
+<?xml version="1.0" encoding="utf-8"?>
+<androidx.constraintlayout.widget.ConstraintLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:app="http://schemas.android.com/apk/res-auto"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    tools:context=".ui.screen.addstudent.AddStudentActivity">
+
+    <androidx.appcompat.widget.Toolbar
+        android:id="@+id/toolbar"
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        android:background="@color/colorPrimaryDark"
+        android:clickable="true"
+        android:focusable="true"
+        android:gravity="top"
+        android:minHeight="?attr/actionBarSize"
+        android:theme="@style/ThemeOverlay.AppCompat.Dark.ActionBar"
+        app:layout_collapseMode="pin"
+        app:layout_constraintTop_toTopOf="parent"
+        app:popupTheme="@style/myTheme.ActionBar.Text"
+        tools:ignore="MissingConstraints">
+
+        <TextView
+            android:id="@+id/textToolbarTitle"
+            android:layout_width="wrap_content"
+            android:layout_height="wrap_content"
+            android:layout_gravity="center"
+            android:gravity="center"
+            android:singleLine="true"
+            android:text="@string/add"
+            android:textColor="#FFFFFF"
+            android:textSize="@dimen/size_text_normal" />
+    </androidx.appcompat.widget.Toolbar>
+    <EditText
+        android:id="@+id/edtName"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_icon_large"
+        app:layout_constraintTop_toBottomOf="@+id/toolbar"
+        android:layout_marginStart="@dimen/margin_left_min"
+        android:paddingLeft="@dimen/padding_small"
+        android:layout_marginTop="@dimen/margin_left_min"
+        android:layout_marginEnd="@dimen/margin_left_min"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="text"
+        android:hint="@string/enter_name_student"
+        android:textStyle="italic"
+        android:textSize="@dimen/size_text_normal"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableLeft="@drawable/ic_useradd"
+        tools:ignore="Autofill,LabelFor,RtlSymmetry"
+        android:paddingStart="@dimen/padding_small"
+        android:drawableStart="@drawable/ic_useradd" />
+    <EditText
+        android:id="@+id/edtAge"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_icon_large"
+        app:layout_constraintTop_toBottomOf="@+id/edtName"
+        android:layout_marginStart="@dimen/margin_left_min"
+        android:paddingLeft="@dimen/padding_small"
+        android:layout_marginTop="@dimen/margin_left_min"
+        android:layout_marginEnd="@dimen/margin_left_min"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="text"
+        android:hint="@string/enter_age_student"
+        android:textStyle="italic"
+        android:textSize="@dimen/size_text_normal"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableLeft="@drawable/ic_birthday"
+        tools:ignore="Autofill,LabelFor,RtlSymmetry"
+        android:paddingStart="@dimen/padding_small"
+        android:drawableStart="@drawable/ic_birthday" />
+    <EditText
+        android:id="@+id/edtPhone"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_icon_large"
+        app:layout_constraintTop_toBottomOf="@+id/edtAge"
+        android:layout_marginStart="@dimen/margin_left_min"
+        android:paddingLeft="@dimen/padding_small"
+        android:layout_marginTop="@dimen/margin_left_min"
+        android:layout_marginEnd="@dimen/margin_left_min"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="numberDecimal"
+        android:hint="@string/enter_phone_student"
+        android:textStyle="italic"
+        android:textSize="@dimen/size_text_normal"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableLeft="@drawable/ic_smartphone"
+        tools:ignore="Autofill,LabelFor,RtlSymmetry,TextFields"
+        android:paddingStart="@dimen/padding_small"
+        android:drawableStart="@drawable/ic_smartphone" />
+    <EditText
+        android:id="@+id/edtAddress"
+        android:layout_width="match_parent"
+        android:layout_height="@dimen/size_icon_large"
+        app:layout_constraintTop_toBottomOf="@+id/edtPhone"
+        android:layout_marginStart="@dimen/margin_left_min"
+        android:paddingLeft="@dimen/padding_small"
+        android:layout_marginTop="@dimen/margin_left_min"
+        android:layout_marginEnd="@dimen/margin_left_min"
+        android:background="@drawable/custom_edit_text"
+        android:inputType="numberDecimal"
+        android:hint="@string/enter_adress_student"
+        android:textStyle="italic"
+        android:textSize="@dimen/size_text_normal"
+        android:drawablePadding="@dimen/padding_small"
+        android:drawableLeft="@drawable/ic_address"
+        tools:ignore="Autofill,LabelFor,RtlSymmetry,TextFields"
+        android:paddingStart="@dimen/padding_small"
+        android:drawableStart="@drawable/ic_address" />
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="wrap_content"
+        app:layout_constraintTop_toBottomOf="@+id/edtAddress"
+        android:layout_marginTop="@dimen/margin_top"
+        android:orientation="horizontal"
+        android:weightSum="1">
+
+        <Button
+            android:id="@+id/btn_save"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/custom_button"
+            android:inputType="textCapWords"
+            android:onClick="@{(v) -> model.onClick(v)}"
+            android:text="@string/save"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+
+            tools:ignore="ButtonStyle,TextViewEdits" />
+
+        <Button
+            android:id="@+id/btn_cancel"
+            android:layout_width="match_parent"
+            android:layout_height="wrap_content"
+            android:layout_marginStart="16dp"
+            android:layout_marginEnd="16dp"
+            android:layout_weight="0.5"
+            android:background="@drawable/custom_button"
+            android:inputType="textCapWords"
+            android:text="@string/cancel"
+            android:textColor="#ffffff"
+            android:textSize="18sp"
+            tools:ignore="TextViewEdits" />
+    </LinearLayout>
+
+</androidx.constraintlayout.widget.ConstraintLayout>
