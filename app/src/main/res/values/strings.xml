@@ -17,4 +17,10 @@
     <string name="enter_adress_student">Enter address student</string>
     <string name="save">Add</string>
     <string name="cancel">Cancel</string>
+    <string name="update_student">Update Student</string>
+    <string name="update">Edit</string>
+
+    <string name="add_success">Add success</string>
+    <string name="edit_success">Edit success</string>
+    <string name="delete_success">Delete success</string>
 </resources>

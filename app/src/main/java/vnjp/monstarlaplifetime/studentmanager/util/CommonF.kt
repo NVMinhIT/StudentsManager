@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package vnjp.monstarlaplifetime.studentmanager.util
 
 import android.content.ContentValues.TAG
@@ -6,6 +8,7 @@ import android.graphics.PorterDuff
 import android.graphics.drawable.Drawable
 import android.net.ConnectivityManager
 import android.os.Build
+import android.text.TextUtils
 import android.util.Log
 import android.view.Gravity
 import android.view.LayoutInflater
@@ -24,12 +27,47 @@ object CommonF {
         mContext = context
     }
 
+    //    @SuppressLint("SimpleDateFormat")
+//    public static String getDateBirthday(String dateTime) {
+//        Date date2 = null;
+//        try {
+//            date2 = new SimpleDateFormat(Constants.K_DATE_FORMAT_5).parse(dateTime);
+//        } catch (ParseException e) {
+//            e.printStackTrace();
+//        }
+//        SimpleDateFormat format = new SimpleDateFormat(Constants.K_DATE_FORMAT_5, Locale.US);
+//        return format.format(date2);
+//    }
+    fun showToastSuccess(msg: Int) {
+        showToastShort(msg, null, ToastEnum.SUCCESS)
+    }
+
+    fun showToastSuccess(msg: String?) {
+        showToastShort(0, msg, ToastEnum.SUCCESS)
+    }
+
+    fun showToastWarning(msg: Int) {
+        showToastShort(msg, null, ToastEnum.WARN)
+    }
+
+    fun showToastWarning(msg: String?) {
+        showToastShort(0, msg, ToastEnum.WARN)
+    }
+
     fun showToastError(msg: Int) {
         showToastShort(msg, null, ToastEnum.ERROR)
     }
 
     fun showToastError(msg: String?) {
         showToastShort(0, msg, ToastEnum.ERROR)
+    }
+
+    fun showToastInfo(msg: Int) {
+        showToastShort(msg, null, ToastEnum.INFO)
+    }
+
+    fun showToastInfo(msg: String?) {
+        showToastShort(0, msg, ToastEnum.INFO)
     }
 
     @Suppress("DEPRECATION")
@@ -50,6 +88,12 @@ object CommonF {
         return false
     }
 
+    fun isNullOrEmpty(s: String?): Boolean {
+        return if (s == null) {
+            true
+        } else TextUtils.isEmpty(s)
+    }
+
     private fun showToastShort(i: Int, msg: String?, error: Any) {
         val toast = Toast(mContext)
         toast.duration = Toast.LENGTH_SHORT
@@ -58,7 +102,7 @@ object CommonF {
             LayoutInflater.from(
                 mContext
             )
-                .inflate(R.layout.customtoast_layout, null, false)
+                .inflate(R.layout.custom_layout_toast, null, false)
         val content = layout.findViewById<TextView>(R.id.toast_content)
         val linearLayout = layout.findViewById<LinearLayout>(R.id.ll_toast_layout)
         val img =
@@ -79,6 +123,33 @@ object CommonF {
                     ), PorterDuff.Mode.SRC
                 )
                 img.setImageResource(R.drawable.ic_error_white)
+            }
+            ToastEnum.WARN -> {
+                drawable.setColorFilter(
+                    ContextCompat.getColor(
+                        this.mContext!!,
+                        R.color.color_warn
+                    ), PorterDuff.Mode.SRC
+                )
+                img.setImageResource(R.drawable.ic_warning_white)
+            }
+            ToastEnum.INFO -> {
+                drawable.setColorFilter(
+                    ContextCompat.getColor(
+                        this.mContext!!,
+                        R.color.color_info
+                    ), PorterDuff.Mode.SRC
+                )
+                img.setImageResource(R.drawable.ic_info_white)
+            }
+            ToastEnum.SUCCESS -> {
+                drawable.setColorFilter(
+                    ContextCompat.getColor(
+                        this.mContext!!,
+                        R.color.color_success
+                    ), PorterDuff.Mode.SRC
+                )
+                img.setImageResource(R.drawable.ic_success_white)
             }
         }
         if (Build.VERSION.SDK_INT >= Build.VERSION_CODES.JELLY_BEAN) {
