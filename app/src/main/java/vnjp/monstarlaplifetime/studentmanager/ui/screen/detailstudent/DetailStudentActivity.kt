@@ -1,21 +1,32 @@
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent
 
+import android.content.Intent
 import android.os.Build
 import android.os.Bundle
 import android.view.WindowManager
+import android.widget.ImageButton
 import android.widget.TextView
 import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import vnjp.monstarlaplifetime.studentmanager.R
+import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent.ListStudentActivity
+import vnjp.monstarlaplifetime.studentmanager.ui.screen.updatestudent.UpdateStudentActivity
 
 @Suppress("DEPRECATION")
 class DetailStudentActivity : AppCompatActivity() {
     lateinit var toolbar: Toolbar
     private var idStudent: Int? = null
     private lateinit var viewModel: DetailStudentViewModel
+    private var idUpdate: Int? = null
+    private lateinit var studentResponse: StudentResponse
+    private lateinit var imbEdit: ImageButton
+
+    companion object {
+        const val ID_UPDATE = "ID_UPDATE"
+    }
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,6 +50,7 @@ class DetailStudentActivity : AppCompatActivity() {
         toolbar.setNavigationOnClickListener {
             finish()
         }
+
     }
 
     private fun observable() {
@@ -52,10 +64,20 @@ class DetailStudentActivity : AppCompatActivity() {
             tvAgeProfile.text = it.age.toString()
             tvPhone.text = it.mobile
             tvAddress.text = it.address
+            idUpdate = it.id
+            studentResponse = it
+
         })
+        imbEdit.setOnClickListener {
+            val intent = Intent(this, UpdateStudentActivity::class.java)
+            intent.putExtra(ID_UPDATE, studentResponse.id)
+            startActivity(intent)
+            finish()
+        }
     }
 
     private fun initView() {
+        imbEdit = findViewById(R.id.imbEdit)
         toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
 

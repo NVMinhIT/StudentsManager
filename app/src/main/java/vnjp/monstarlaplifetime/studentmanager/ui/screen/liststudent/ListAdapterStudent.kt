@@ -7,16 +7,21 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
+import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.util.CommonF
 
 class ListAdapterStudent(
     private val context: Context, private val itemClick: (Int) -> Unit
 ) : RecyclerView.Adapter<ListAdapterStudent.MyViewHolder>() {
-    private var listStudent: List<Student> = emptyList()
-
-    fun setListStudent(list: List<Student>) {
+    private var listStudent: List<StudentResponse> = emptyList()
+    private var longClickItemListener: ILongClickItemListener? = null
+    fun setListStudent(list: List<StudentResponse>) {
         listStudent = list
         notifyDataSetChanged()
+    }
+
+    fun setLongClickItemListener(studentListener: ILongClickItemListener) {
+        longClickItemListener = studentListener
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): MyViewHolder {
@@ -29,8 +34,27 @@ class ListAdapterStudent(
         return listStudent.size
     }
 
-    fun getPosition(position: Int): Student {
+    fun getPosition(position: Int): StudentResponse {
         return listStudent.get(position)
+
+    }
+
+    //lọc
+    fun filter(name: String) {
+        if (CommonF.isNullOrEmpty(name)) {
+            listStudent.let {
+                setListStudent(it)
+            }
+        } else {
+            val orderList: ArrayList<StudentResponse> =
+                java.util.ArrayList<StudentResponse>()
+            for (item in this.listStudent) {
+                if (item.name.contains(name)) {
+                    orderList.add(item)
+                }
+            }
+            setListStudent(orderList)
+        }
 
     }
 
@@ -49,11 +73,21 @@ class ListAdapterStudent(
             }
         }
 
-        fun bindData(student: Student) {
+        fun bindData(student: StudentResponse) {
             nameStudent.text = student.name
             ageStudent.text = student.age.toString()
+            this.itemView.setOnLongClickListener {
+                longClickItemListener?.onLongClickItemStudent(student)
+                true
+            }
+
         }
 
     }
 
+    interface ILongClickItemListener {
+        fun onLongClickItemStudent(
+            student: StudentResponse?
+        )
+    }
 }

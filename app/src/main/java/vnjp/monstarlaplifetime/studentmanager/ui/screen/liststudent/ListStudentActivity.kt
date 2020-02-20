@@ -1,29 +1,40 @@
+@file:Suppress("DEPRECATION")
+
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent
 
+import android.app.AlertDialog
 import android.content.Intent
-import android.graphics.Color
 import android.os.Bundle
+import android.text.Editable
+import android.text.TextWatcher
+import android.util.Log
 import android.view.View
 import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.appcompat.app.AppCompatActivity
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import androidx.swiperefreshlayout.widget.SwipeRefreshLayout
-import vnjp.monstarlablifetime.mochichat.data.model.OptionalButton
-import vnjp.monstarlablifetime.mochichat.data.model.OptionalClickListener
-import vnjp.monstarlablifetime.mochichat.screen.SwipeHelper
+import com.google.android.material.floatingactionbutton.FloatingActionButton
+import kotlinx.android.synthetic.main.activity_list_student.*
 import vnjp.monstarlaplifetime.studentmanager.R
+import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.ui.screen.addstudent.AddStudentActivity
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent.DetailStudentActivity
+import vnjp.monstarlaplifetime.studentmanager.util.CommonF
 
 @Suppress("DEPRECATION")
-class ListStudentActivity : AppCompatActivity() {
+class ListStudentActivity : AppCompatActivity(), View.OnClickListener,
+    ListAdapterStudent.ILongClickItemListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: ListStudentViewModel
     private lateinit var listAdapterStudent: ListAdapterStudent
     private lateinit var progress: ProgressBar
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
+    private lateinit var floatingActionButton: FloatingActionButton
+    private var isFirst = true
 
     companion object {
         const val BUNDLE_STUDENT_ID = "BUNDLE_STUDENT_ID"
@@ -39,7 +50,6 @@ class ListStudentActivity : AppCompatActivity() {
     }
 
     private fun obServable() {
-
         viewModel.getAllStudent()
         viewModel.isLoading.observe(this, Observer {
             if (it) {
@@ -55,9 +65,15 @@ class ListStudentActivity : AppCompatActivity() {
 
     }
 
-    fun observerList() {
+    fun observerDelete() {
+//        viewModel.delStudent.observe(this, Observer {
+////
+////            Log.d("HEADER",it.toString())
+////            Toast.makeText(this,it.toString(),Toast.LENGTH_LONG).show()
+////        })
         viewModel.delStudent.observe(this, Observer {
-            listAdapterStudent.notifyDataSetChanged()
+            viewModel.getAllStudent()
+            CommonF.showToastSuccess(R.string.delete_success)
         })
     }
 
@@ -66,6 +82,28 @@ class ListStudentActivity : AppCompatActivity() {
     }
 
     private fun initEvent() {
+        floatingActionButton.setOnClickListener(this)
+        swipeRefreshLayout?.setOnRefreshListener {
+            viewModel.getAllStudent()
+            swipeRefreshLayout!!.isRefreshing = false
+        }
+        edtSearch.addTextChangedListener(object : TextWatcher {
+            override fun onTextChanged(s: CharSequence?, start: Int, before: Int, count: Int) {
+            }
+
+            override fun afterTextChanged(s: Editable?) {
+                listAdapterStudent.filter(s.toString())
+                if (CommonF.isNullOrEmpty(s.toString())) {
+                    viewModel.getAllStudent()
+                }
+            }
+
+            override fun beforeTextChanged(s: CharSequence?, start: Int, count: Int, after: Int) {
+            }
+        })
+    }
+
+    private fun initView() {
         recyclerView = findViewById(R.id.rvListStudent)
         recyclerView.layoutManager = LinearLayoutManager(this)
         listAdapterStudent = ListAdapterStudent(this) {
@@ -74,46 +112,53 @@ class ListStudentActivity : AppCompatActivity() {
             startActivity(intent)
         }
         recyclerView.adapter = listAdapterStudent
-        swipeRefreshLayout?.setOnRefreshListener {
-            viewModel.getAllStudent()
-            swipeRefreshLayout!!.isRefreshing = false
-        }
-        val swipeHelper = object : SwipeHelper(this, recyclerView, 200) {
-            override fun initOptionalButton(
-                viewHolder: RecyclerView.ViewHolder,
-                buffer: MutableList<OptionalButton>
-            ) {
-                buffer.add(
-                    OptionalButton(applicationContext,
-                        "Has Seen",
-                        30,
-                        R.drawable.ic_bin,
-                        Color.parseColor("#F44336"),
-                        object : OptionalClickListener {
-                            override fun onClick(pos: Int) {
-//                                Toast.makeText(
-//                                    applicationContext,
-//                                    listAdapterStudent.getPosition(pos).id.toString(),
-//                                    Toast.LENGTH_SHORT
-//                                )
-//                                    .show()
-                                //"on click check $pos"
-                                viewModel.deleteStudent(listAdapterStudent.getPosition(pos).id)
-                                observerList()
-                            }
-                        }
-                    )
-                )
-            }
-
-        }
-
-
-    }
-
-    private fun initView() {
+        listAdapterStudent.setLongClickItemListener(this)
+        floatingActionButton = findViewById(R.id.fab)
         progress = findViewById(R.id.progressOnLoading)
         swipeRefreshLayout = findViewById(R.id.swipeRefreshLayout)
 
+    }
+
+    override fun onClick(v: View?) {
+        when (v?.id) {
+            R.id.fab -> {
+                val intent = Intent(this, AddStudentActivity::class.java)
+                startActivity(intent)
+            }
+
+        }
+    }
+
+    override fun onResume() {
+        super.onResume()
+        if (!isFirst) {
+            viewModel.getAllStudent()
+
+        } else {
+            isFirst = false
+        }
+    }
+
+    override fun onLongClickItemStudent(student: StudentResponse?) {
+        showDialogDelete(student)
+    }
+
+    private fun showDialogDelete(student: StudentResponse?) {
+        val dialog = AlertDialog.Builder(this, R.style.AlertDialog)
+        dialog.setMessage("You want delete student?")
+        dialog.setPositiveButton(
+            "Yes"
+        ) { dialogInterface, i ->
+            student?.id?.let {
+                viewModel.deleteStudentById(it) }
+           // observerDelete()
+            observerDelete()
+        }
+        dialog.setNegativeButton(
+            "No"
+        ) { dialogInterface, i ->
+
+        }
+        dialog.show()
     }
 }

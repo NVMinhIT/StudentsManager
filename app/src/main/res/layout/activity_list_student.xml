@@ -16,12 +16,12 @@
         app:layout_constraintTop_toBottomOf="@+id/back">
 
         <EditText
-            android:id="@+id/edt_search"
+            android:id="@+id/edtSearch"
             android:layout_width="match_parent"
-            android:layout_height="32dp"
+            android:layout_height="@dimen/size_icon_xxx_normal"
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="12dp"
-            android:layout_marginTop="10dp"
+            android:layout_marginTop="2dp"
             android:background="@drawable/custom_edit_search"
             android:hint="@string/timkiem"
             android:inputType="textCapCharacters"

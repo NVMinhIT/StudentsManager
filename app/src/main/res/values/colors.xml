@@ -9,4 +9,12 @@
     <color name="color_red">#d50000</color>
     <color name="color_progressbar">#4B738D</color>
     <color name="color_gray">#E0E0E0</color>
+    <color name="color_success">@color/color_green</color>
+    <color name="color_info">@color/color_blue</color>
+    <color name="color_warn">@color/color_orange</color>
+    <color name="color_green">#1faa00</color>
+    <color name="color_green_active">#9cff57</color>
+    <color name="color_blue">#1976d2</color>
+    <color name="color_blue_active">#63a4ff</color>
+    <color name="color_orange">#ff8f00</color>
 </resources>

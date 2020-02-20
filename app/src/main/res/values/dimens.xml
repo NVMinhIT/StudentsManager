@@ -37,11 +37,14 @@
     <dimen name="margin_top">40dp</dimen>
     <!--    margin-->
     <dimen name="margin_bottom_small">12dp</dimen>
+    <dimen name="margin_bottom_x_small">26dp</dimen>
     <!--size icon-->
     <dimen name="size_icon_small">18dp</dimen>
     <dimen name="size_icon_normal">22dp</dimen>
     <dimen name="size_icon_x_normal">28dp</dimen>
     <dimen name="size_icon_xx_normal">32dp</dimen>
+    <dimen name="size_icon_xxx_normal">38dp</dimen>
     <dimen name="size_icon_large">48dp</dimen>
+    <dimen name="size_icon_x_large">56dp</dimen>
     <dimen name="size_icon_max">100dp</dimen>
 </resources>

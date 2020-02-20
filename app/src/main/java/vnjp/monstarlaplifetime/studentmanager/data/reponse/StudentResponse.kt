@@ -3,7 +3,7 @@ package vnjp.monstarlaplifetime.studentmanager.data.reponse
 import com.google.gson.annotations.Expose
 import com.google.gson.annotations.SerializedName
 
-data class Student(
+data class StudentResponse(
     @SerializedName("id")
     @Expose
     var id: Int,
