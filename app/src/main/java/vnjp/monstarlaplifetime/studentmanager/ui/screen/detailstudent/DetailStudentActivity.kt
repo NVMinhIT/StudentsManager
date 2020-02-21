@@ -6,17 +6,18 @@ import android.os.Bundle
 import android.view.WindowManager
 import android.widget.ImageButton
 import android.widget.TextView
-import androidx.appcompat.app.AppCompatActivity
+import android.widget.Toast
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
+import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent.ListStudentActivity
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.updatestudent.UpdateStudentActivity
 
 @Suppress("DEPRECATION")
-class DetailStudentActivity : AppCompatActivity() {
+class DetailStudentActivity : BaseActivity() {
     lateinit var toolbar: Toolbar
     private var idStudent: Int? = null
     private lateinit var viewModel: DetailStudentViewModel
@@ -59,6 +60,16 @@ class DetailStudentActivity : AppCompatActivity() {
         val tvPhone = findViewById<TextView>(R.id.tvPhone)
         val tvAddress = findViewById<TextView>(R.id.tvAddress)
         idStudent?.let { viewModel.getStudentById(it) }
+        viewModel.isLoading.observe(this, Observer {
+            if (it) {
+                showDialog(true)
+            } else {
+                showDialog(false)
+            }
+        })
+        viewModel.isException.observe(this, Observer {
+            Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+        })
         viewModel.student.observe(this, Observer {
             tvNameProfile.text = it.name
             tvAgeProfile.text = it.age.toString()

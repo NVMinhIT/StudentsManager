@@ -1,25 +1,26 @@
+@file:Suppress("DEPRECATION")
+
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.addstudent
 
 import android.os.Build
 import android.os.Bundle
 import android.view.View
 import android.widget.EditText
-import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_add_student.*
+import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
-import vnjp.monstarlaplifetime.studentmanager.util.CommonF
+import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 @Suppress("DEPRECATION")
-class AddStudentActivity : AppCompatActivity(), View.OnClickListener {
+class AddStudentActivity : BaseActivity(), View.OnClickListener {
     private lateinit var toolbar: Toolbar
     private lateinit var addStudentViewModel: AddStudentViewModel
-    private lateinit var progress: ProgressBar
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -39,31 +40,32 @@ class AddStudentActivity : AppCompatActivity(), View.OnClickListener {
     }
 
     private fun observable() {
+        addStudentViewModel.isLoading.observe(this, Observer {
+            if (it) {
+                if (it) {
+                    showDialog(true)
+                } else {
+                    showDialog(false)
+                }
+            }
+        })
         addStudentViewModel.students.observe(this, Observer {
             if (it.address.isNotEmpty()) {
                 finish()
-                CommonF.showToastSuccess(R.string.add_success)
-
+                Common.showToastSuccess(R.string.add_success)
             }
 
         })
         addStudentViewModel.isException.observe(this, Observer {
+            showDialog(false)
+            Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
 
         })
-        addStudentViewModel.isLoading.observe(this, Observer {
-            if (it) {
-                if (it) {
-                    progress.visibility = View.VISIBLE
-                } else {
-                    progress.visibility = View.INVISIBLE
-                }
-            }
-        })
+
     }
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initView() {
-        progress = findViewById(R.id.progressOnLoading)
         toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
 
@@ -86,12 +88,7 @@ class AddStudentActivity : AppCompatActivity(), View.OnClickListener {
                     edtAddress.setError("Please Enter Address")
                 } else {
                     addStudentViewModel.addStudents(
-                        Student(
-                            edtAddress.text.toString(),
-                            edtAge.text.toString().toInt(),
-                            1,
-                            edtPhone.text.toString(),
-                            edtName.text.toString()
+                        Student(edtAddress.text.toString(), edtAge.text.toString().toInt(), 1, edtPhone.text.toString(), edtName.text.toString()
                         )
                     )
                     observable()

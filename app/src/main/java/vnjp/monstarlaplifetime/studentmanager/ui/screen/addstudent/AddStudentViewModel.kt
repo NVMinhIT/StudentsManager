@@ -3,15 +3,12 @@ package vnjp.monstarlaplifetime.studentmanager.ui.screen.addstudent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.api.Result
 import vnjp.monstarlaplifetime.studentmanager.data.api.ServiceRetrofit
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 import vnjp.monstarlaplifetime.studentmanager.data.repository.StudentRepository
-import vnjp.monstarlaplifetime.studentmanager.util.CommonF
+import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 class AddStudentViewModel : ViewModel() {
     private var apiService = ServiceRetrofit().getService()
@@ -23,20 +20,20 @@ class AddStudentViewModel : ViewModel() {
     private val _isException = MutableLiveData<String>()
     val isException: LiveData<String> = _isException
 
-    fun addStudents(student: Student) = viewModelScope.launch {
+    fun addStudents(student: Student) {
         _isLoading.value = true
-        if (!CommonF.isNetworkAvailable()) {
-            CommonF.showToastError(R.string.noInternet)
-            return@launch
+        if (!Common.isNetworkAvailable()) {
+            Common.showToastError(R.string.noInternet)
+            return
         }
-        val result = studentRepository.addStudents(student)
-        if (result is Result.Success) {
+        studentRepository.addStudents(student, onDataLoaded = {
             _isLoading.value = false
-            _students.value = result.data
-        } else {
+            _students.value = it
+        }, ex = {
             _isLoading.value = false
-            _isException.value = result.toString()
-        }
-
+            _isException.value = it.toString()
+        })
     }
+
+
 }

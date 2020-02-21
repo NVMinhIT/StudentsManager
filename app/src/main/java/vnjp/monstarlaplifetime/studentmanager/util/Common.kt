@@ -20,24 +20,13 @@ import android.widget.Toast
 import androidx.core.content.ContextCompat
 import vnjp.monstarlaplifetime.studentmanager.R
 
-object CommonF {
+object Common {
     private var mContext: Context? = null
 
     fun CommonF(context: Context?) {
         mContext = context
     }
 
-    //    @SuppressLint("SimpleDateFormat")
-//    public static String getDateBirthday(String dateTime) {
-//        Date date2 = null;
-//        try {
-//            date2 = new SimpleDateFormat(Constants.K_DATE_FORMAT_5).parse(dateTime);
-//        } catch (ParseException e) {
-//            e.printStackTrace();
-//        }
-//        SimpleDateFormat format = new SimpleDateFormat(Constants.K_DATE_FORMAT_5, Locale.US);
-//        return format.format(date2);
-//    }
     fun showToastSuccess(msg: Int) {
         showToastShort(msg, null, ToastEnum.SUCCESS)
     }

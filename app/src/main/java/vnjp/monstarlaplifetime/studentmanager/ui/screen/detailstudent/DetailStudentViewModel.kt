@@ -3,15 +3,11 @@ package vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.api.Result
 import vnjp.monstarlaplifetime.studentmanager.data.api.ServiceRetrofit
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 import vnjp.monstarlaplifetime.studentmanager.data.repository.StudentRepository
-import vnjp.monstarlaplifetime.studentmanager.util.CommonF
+import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 class DetailStudentViewModel : ViewModel() {
     private val apiService = ServiceRetrofit().getService()
@@ -20,21 +16,21 @@ class DetailStudentViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
     private var _student = MutableLiveData<StudentResponse>()
     val student: LiveData<StudentResponse> = _student
-
-
-    fun getStudentById(id: Int) = viewModelScope.launch {
+    private val _isException = MutableLiveData<String>()
+    val isException: LiveData<String> = _isException
+    fun getStudentById(id: Int) {
         _isLoading.value = true
-        if (!CommonF.isNetworkAvailable()) {
-            CommonF.showToastError(R.string.noInternet)
-            return@launch
+        if (!Common.isNetworkAvailable()) {
+            Common.showToastError(R.string.noInternet)
+            return
         }
-        val result = repository.getStudentById(id)
-        if (result is Result.Success) {
+        repository.getStudentById(id, onDataLoaded = {
             _isLoading.value = false
-            _student.value = result.data
-        } else {
+            _student.value = it
+        }, ex = {
             _isLoading.value = false
-            // _isException.value = result.toString()
-        }
+            _isException.value = it.toString()
+        })
     }
+
 }
