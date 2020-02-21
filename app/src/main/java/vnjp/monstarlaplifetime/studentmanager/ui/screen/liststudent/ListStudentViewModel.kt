@@ -3,15 +3,11 @@ package vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
-import androidx.lifecycle.viewModelScope
-import kotlinx.coroutines.launch
-import okhttp3.Headers
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.api.Result
 import vnjp.monstarlaplifetime.studentmanager.data.api.ServiceRetrofit
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 import vnjp.monstarlaplifetime.studentmanager.data.repository.StudentRepository
-import vnjp.monstarlaplifetime.studentmanager.util.CommonF
+import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 class ListStudentViewModel : ViewModel() {
     private val apiService = ServiceRetrofit().getService()
@@ -22,42 +18,36 @@ class ListStudentViewModel : ViewModel() {
     val isLoading: LiveData<Boolean> = _isLoading
     private val _isException = MutableLiveData<String>()
     val isException: LiveData<String> = _isException
-
-
     private val _deleteStudent = MutableLiveData<Unit>()
     val delStudent: LiveData<Unit> = _deleteStudent
-    fun getAllStudent() = viewModelScope.launch {
+    fun getAllStudent() {
         _isLoading.value = true
-        if (!CommonF.isNetworkAvailable()) {
-            CommonF.showToastError(R.string.noInternet)
-            return@launch
+        if (!Common.isNetworkAvailable()) {
+            Common.showToastError(R.string.noInternet)
+            return
         }
-        val result = repository.getAllStudents()
-        if (result is Result.Success) {
+        repository.getAllStudents(onDataLoaded = {
             _isLoading.value = false
-            _students.value = result.data
-        } else {
+            _students.value = it
+        }, ex = {
             _isLoading.value = false
-            _isException.value = result.toString()
-        }
+            _isException.value = it.toString()
+        })
     }
 
-    fun deleteStudentById(id: Int) = viewModelScope.launch {
+    fun deleteStudentById(id: Int) {
         _isLoading.value = true
-        if (!CommonF.isNetworkAvailable()) {
-            CommonF.showToastError(R.string.noInternet)
-            return@launch
+        if (!Common.isNetworkAvailable()) {
+            Common.showToastError(R.string.noInternet)
+            return
         }
-        val result = repository.deleteStudent(id)
-        if (result is Result.Success) {
+        repository.deleteStudentId(id, onDataLoaded = {
             _isLoading.value = false
-            //Log.d("RESULT", "result${result.data}")
-            _deleteStudent.value = result.data
-        } else {
+            _deleteStudent.value = it
+        }, ex = {
             _isLoading.value = false
-            _isException.value = result.toString()
-        }
+            _isException.value = it.toString()
+        })
     }
-
 
 }

@@ -7,12 +7,18 @@
         <item name="colorPrimaryDark">@color/colorPrimaryDark</item>
         <item name="colorAccent">@color/colorAccent</item>
     </style>
+
     <style name="myTheme.ActionBar.Text" parent="@android:style/TextAppearance">
         <item name="android:textColor">#FFFFFF</item>
     </style>
+
     <style name="AlertDialog" parent="Theme.AppCompat.Light.Dialog.Alert">
         <item name="android:textColor">@color/colorPrimaryDark</item>
-<!--        <item name="android:textColorPrimary">#595959</item>-->
+    </style>
 
+    <style name="AppCompatAlertDialogStyle" parent="Theme.AppCompat.Light.Dialog.Alert">
+        <item name="colorAccent">@color/colorPrimaryDark</item>
+        <item name="android:textColorPrimary">@color/colorPrimary</item>
+        <item name="android:textColor">@color/colorPrimaryDark</item>
     </style>
 </resources>

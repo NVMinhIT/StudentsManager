@@ -1,5 +1,4 @@
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent
-
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
@@ -8,8 +7,7 @@ import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vnjp.monstarlaplifetime.studentmanager.R
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
-import vnjp.monstarlaplifetime.studentmanager.util.CommonF
-
+import vnjp.monstarlaplifetime.studentmanager.util.Common
 class ListAdapterStudent(
     private val context: Context, private val itemClick: (Int) -> Unit
 ) : RecyclerView.Adapter<ListAdapterStudent.MyViewHolder>() {
@@ -38,10 +36,8 @@ class ListAdapterStudent(
         return listStudent.get(position)
 
     }
-
-    //lọc
     fun filter(name: String) {
-        if (CommonF.isNullOrEmpty(name)) {
+        if (Common.isNullOrEmpty(name)) {
             listStudent.let {
                 setListStudent(it)
             }

@@ -23,4 +23,5 @@
     <string name="add_success">Add success</string>
     <string name="edit_success">Edit success</string>
     <string name="delete_success">Delete success</string>
+    <string name="age_student">Age: </string>
 </resources>

@@ -1,77 +1,123 @@
 package vnjp.monstarlaplifetime.studentmanager.data.repository
 
 
-import kotlinx.coroutines.Dispatchers
-import kotlinx.coroutines.withContext
+import retrofit2.Call
+import retrofit2.Callback
+import retrofit2.Response
 import vnjp.monstarlaplifetime.studentmanager.data.api.ApiService
-import vnjp.monstarlaplifetime.studentmanager.data.api.Result
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 
 class StudentRepository(private val apiService: ApiService) {
 
-    suspend fun getAllStudents(): Result<List<StudentResponse>?> {
+    fun getAllStudents(onDataLoaded: (List<StudentResponse>?) -> Unit, ex: (String?) -> Unit) {
+        val response = apiService.getAllStudents()
+        response.enqueue(object : Callback<List<StudentResponse>> {
+            override fun onResponse(
+                call: Call<List<StudentResponse>>,
+                response: Response<List<StudentResponse>>
+            ) {
+                if (response.isSuccessful) {
+                    onDataLoaded.invoke(response.body())
+                }
+            }
 
-        return withContext(Dispatchers.IO) {
-
-            val response = apiService.getAllStudents()
-            if (response.isSuccessful) {
-                return@withContext Result.Success(response.body())
-
-            } else
-                return@withContext Result.Error(Exception(response.message()))
-        }
-
-    }
-
-    suspend fun getStudentById(id: Int): Result<StudentResponse?> {
-
-        return withContext(Dispatchers.IO) {
-
-            val response = apiService.getStudentById(id)
-            if (response.isSuccessful) {
-                return@withContext Result.Success(response.body())
-
-            } else
-                return@withContext Result.Error(Exception(response.message()))
-        }
+            override fun onFailure(call: Call<List<StudentResponse>>, t: Throwable) {
+                ex.invoke(t.message.toString())
+            }
+        })
 
     }
 
-    suspend fun addStudents(student: Student): Result<StudentResponse?> {
-        return withContext(Dispatchers.IO) {
-            val response = apiService.addStudent(student)
-            if (response.isSuccessful) {
-                return@withContext Result.Success(response.body())
+    fun getStudentById(
+        id: Int,
+        onDataLoaded: (StudentResponse?) -> Unit,
+        ex: (String?) -> Unit
+    ) {
+        val response = apiService.getStudentById(id)
+        response.enqueue(object : Callback<StudentResponse?> {
+            override fun onResponse(
+                call: Call<StudentResponse?>,
+                response: Response<StudentResponse?>
+            ) {
+                if (response.isSuccessful) {
+                    onDataLoaded.invoke(response.body())
+                }
+            }
 
-            } else
-                return@withContext Result.Error(Exception(response.message()))
-        }
-
-    }
-
-    suspend fun updateStudents(id: Int, student: Student): Result<StudentResponse?> {
-        return withContext(Dispatchers.IO) {
-            val response = apiService.updateStudentById(id, student)
-            if (response.isSuccessful) {
-                return@withContext Result.Success(response.body())
-
-            } else
-                return@withContext Result.Error(Exception(response.message()))
-        }
-
-    }
-
-    suspend fun deleteStudent(id: Int): Result<Unit?> {
-        return withContext(Dispatchers.IO) {
-            val response = apiService.deleteStudentById(id)
-            if (response.isSuccessful) {
-                return@withContext Result.Success(response.body())
-
-            } else
-                return@withContext Result.Error(Exception(response.message()))
-        }
+            override fun onFailure(call: Call<StudentResponse?>, t: Throwable) {
+                ex.invoke(t.message.toString())
+            }
+        })
 
     }
 
+    fun addStudents(
+        student: Student,
+        onDataLoaded: (StudentResponse?) -> Unit,
+        ex: (String?) -> Unit
+    ) {
+        val response = apiService.addStudent(student)
+        response.enqueue(object : Callback<StudentResponse?> {
+            override fun onResponse(
+                call: Call<StudentResponse?>,
+                response: Response<StudentResponse?>
+            ) {
+                if (response.isSuccessful) {
+                    onDataLoaded.invoke(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<StudentResponse?>, t: Throwable) {
+                ex.invoke(t.message.toString())
+            }
+        })
+
+    }
+
+    fun updateStudents(
+        id: Int,
+        student: Student,
+        onDataLoaded: (StudentResponse?) -> Unit,
+        ex: (String?) -> Unit
+    ) {
+        val response = apiService.updateStudentById(id, student)
+        response.enqueue(object : Callback<StudentResponse?> {
+            override fun onResponse(
+                call: Call<StudentResponse?>,
+                response: Response<StudentResponse?>
+            ) {
+                if (response.isSuccessful) {
+                    onDataLoaded.invoke(response.body())
+                }
+            }
+
+            override fun onFailure(call: Call<StudentResponse?>, t: Throwable) {
+                ex.invoke(t.message.toString())
+            }
+        })
+
+    }
+
+    fun deleteStudentId(
+        id: Int,
+        onDataLoaded: (Unit?) -> Unit,
+        ex: (String?) -> Unit
+    ) {
+        val response = apiService.deleteStudentById(id)
+        response.enqueue(object : Callback<Unit?> {
+            override fun onResponse(
+                call: Call<Unit?>,
+                response: Response<Unit?>
+            ) {
+                if (response.isSuccessful) {
+                    onDataLoaded.invoke(response.body())
+                }
+            }
+            override fun onFailure(call: Call<Unit?>, t: Throwable) {
+                ex.invoke(t.message.toString())
+            }
+        })
+
+    }
 }

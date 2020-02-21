@@ -4,28 +4,26 @@ package vnjp.monstarlaplifetime.studentmanager.ui.screen.updatestudent
 
 import android.os.Build
 import android.os.Bundle
-import android.view.View
 import android.widget.EditText
-import android.widget.ProgressBar
+import android.widget.Toast
 import androidx.annotation.RequiresApi
-import androidx.appcompat.app.AppCompatActivity
 import androidx.appcompat.widget.Toolbar
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_update_student.*
+import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent.DetailStudentActivity
-import vnjp.monstarlaplifetime.studentmanager.util.CommonF
+import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 @Suppress("DEPRECATION")
-class UpdateStudentActivity : AppCompatActivity() {
+class UpdateStudentActivity : BaseActivity() {
     private var idNew: Int? = null
     private lateinit var edtUpdateName: EditText
     private lateinit var edtUpdateAge: EditText
     private lateinit var edtUpdatePhone: EditText
     private lateinit var edtUpdateAddress: EditText
-    private lateinit var progress: ProgressBar
     private lateinit var toolbar: Toolbar
     private lateinit var updateStudentViewModel: UpdateStudentViewModel
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
@@ -53,21 +51,25 @@ class UpdateStudentActivity : AppCompatActivity() {
                 idNew!!, it
             )
         }
-        updateStudentViewModel.updateStudent.observe(this, Observer {
-            if (it.address.isNotEmpty()) {
-                finish()
-                CommonF.showToastSuccess(R.string.edit_success)
-            }
-        })
         updateStudentViewModel.isLoading.observe(this, Observer {
             if (it) {
                 if (it) {
-                    progress.visibility = View.VISIBLE
+                    showDialog(true)
                 } else {
-                    progress.visibility = View.INVISIBLE
+                    showDialog(false)
                 }
             }
         })
+        updateStudentViewModel.updateStudent.observe(this, Observer {
+            if (it.address.isNotEmpty()) {
+                finish()
+                Common.showToastSuccess(R.string.edit_success)
+            }
+        })
+        updateStudentViewModel.isException.observe(this, Observer {
+            Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()
+        })
+
     }
 
     private fun observablesById() {
@@ -92,7 +94,6 @@ class UpdateStudentActivity : AppCompatActivity() {
 
     @RequiresApi(Build.VERSION_CODES.LOLLIPOP)
     private fun initView() {
-        progress = findViewById(R.id.progressOnLoading)
         toolbar = findViewById(R.id.toolbar)
         toolbar.setNavigationIcon(R.drawable.ic_feather_arrow_left__white)
         edtUpdateAddress = findViewById(R.id.edtUpdateAddress)

@@ -22,29 +22,19 @@
             android:layout_gravity="center_vertical"
             android:layout_marginHorizontal="12dp"
             android:layout_marginTop="2dp"
+            android:drawableLeft="@drawable/ic_search"
+            android:drawablePadding="@dimen/padding_micro"
             android:background="@drawable/custom_edit_search"
             android:hint="@string/timkiem"
             android:inputType="textCapCharacters"
             android:paddingStart="12dp"
             android:paddingLeft="12dp"
             android:singleLine="true"
+            android:textSize="@dimen/size_text_xx_min"
             android:textColorHint="#BDBDBD"
-            tools:ignore="Autofill,RtlSymmetry,UnusedAttribute" />
+            tools:ignore="Autofill,RtlSymmetry,UnusedAttribute"
+            android:drawableStart="@drawable/ic_search" />
     </LinearLayout>
-
-    <ProgressBar
-        android:id="@+id/progressOnLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/color_progressbar"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnusedAttribute" />
 
     <RelativeLayout
         android:id="@+id/back"

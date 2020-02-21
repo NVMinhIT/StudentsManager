@@ -124,32 +124,4 @@
         android:textStyle="italic"
         app:layout_constraintTop_toBottomOf="@+id/edtUpdatePhone"
         tools:ignore="Autofill,LabelFor,RtlSymmetry,TextFields" />
-
-<!--    <Button-->
-<!--        android:id="@+id/btEdit"-->
-<!--        android:layout_width="128dp"-->
-<!--        android:layout_height="wrap_content"-->
-<!--        android:layout_marginTop="12dp"-->
-<!--        android:background="@drawable/custom_button"-->
-<!--        android:inputType="textCapCharacters"-->
-<!--        android:text="@string/update"-->
-<!--        android:textColor="#FFFFFF"-->
-<!--        app:layout_constraintLeft_toLeftOf="parent"-->
-<!--        app:layout_constraintRight_toRightOf="parent"-->
-<!--        app:layout_constraintTop_toBottomOf="@+id/edtUpdateAddress"-->
-<!--        tools:ignore="TextViewEdits" />-->
-
-    <ProgressBar
-        android:id="@+id/progressOnLoading"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_marginTop="20dp"
-        android:indeterminate="true"
-        android:indeterminateTint="@color/color_progressbar"
-        android:visibility="invisible"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintLeft_toLeftOf="parent"
-        app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        tools:ignore="UnusedAttribute" />
 </androidx.constraintlayout.widget.ConstraintLayout>
