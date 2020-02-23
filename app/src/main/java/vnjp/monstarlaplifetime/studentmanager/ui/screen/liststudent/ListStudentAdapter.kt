@@ -8,9 +8,9 @@ import androidx.recyclerview.widget.RecyclerView
 import vnjp.monstarlaplifetime.studentmanager.R
 import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
 import vnjp.monstarlaplifetime.studentmanager.util.Common
-class ListAdapterStudent(
+class ListStudentAdapter(
     private val context: Context, private val itemClick: (Int) -> Unit
-) : RecyclerView.Adapter<ListAdapterStudent.MyViewHolder>() {
+) : RecyclerView.Adapter<ListStudentAdapter.MyViewHolder>() {
     private var listStudent: List<StudentResponse> = emptyList()
     private var longClickItemListener: ILongClickItemListener? = null
     fun setListStudent(list: List<StudentResponse>) {

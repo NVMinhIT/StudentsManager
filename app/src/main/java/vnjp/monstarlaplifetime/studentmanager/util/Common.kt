@@ -2,6 +2,7 @@
 
 package vnjp.monstarlaplifetime.studentmanager.util
 
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.graphics.PorterDuff
@@ -83,6 +84,7 @@ object Common {
         } else TextUtils.isEmpty(s)
     }
 
+    @SuppressLint("InflateParams")
     private fun showToastShort(i: Int, msg: String?, error: Any) {
         val toast = Toast(mContext)
         toast.duration = Toast.LENGTH_SHORT

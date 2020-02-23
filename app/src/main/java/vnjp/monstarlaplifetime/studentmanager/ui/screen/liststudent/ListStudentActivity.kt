@@ -8,7 +8,6 @@ import android.os.Bundle
 import android.text.Editable
 import android.text.TextWatcher
 import android.view.View
-import android.widget.ProgressBar
 import android.widget.Toast
 import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
@@ -26,10 +25,10 @@ import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 @Suppress("DEPRECATION")
 class ListStudentActivity : BaseActivity(), View.OnClickListener,
-    ListAdapterStudent.ILongClickItemListener {
+    ListStudentAdapter.ILongClickItemListener {
     private lateinit var recyclerView: RecyclerView
     private lateinit var viewModel: ListStudentViewModel
-    private lateinit var listAdapterStudent: ListAdapterStudent
+    private lateinit var listAdapterStudent: ListStudentAdapter
     private var swipeRefreshLayout: SwipeRefreshLayout? = null
     private lateinit var floatingActionButton: FloatingActionButton
     private var isFirst = true
@@ -109,7 +108,7 @@ class ListStudentActivity : BaseActivity(), View.OnClickListener,
     private fun initView() {
         recyclerView = findViewById(R.id.rvListStudent)
         recyclerView.layoutManager = LinearLayoutManager(this)
-        listAdapterStudent = ListAdapterStudent(this) {
+        listAdapterStudent = ListStudentAdapter(this) {
             val intent = Intent(this, DetailStudentActivity::class.java)
             intent.putExtra(BUNDLE_STUDENT_ID, listAdapterStudent.getPosition(it).id)
             startActivity(intent)

@@ -1,12 +1,12 @@
 <resources>
     <string name="app_name">StudentManager</string>
-    <string name="timkiem">Tìm kiếm</string>
-    <string name="quanlysinhvien">ManagerStudent</string>
+    <string name="search">Tìm kiếm</string>
+    <string name="manager">ManagerStudent</string>
     <string name="noInternet">Không có kết nối Internet</string>
     <string name="abc">Profile Student</string>
-    <string name="nghi_m_v_n_minh">Nghiêm Văn Minh</string>
-    <string name="_0339142262">0339142262</string>
-    <string name="adress">Hà Nội</string>
+    <string name="name">Nghiêm Văn Minh</string>
+    <string name="phone">0339142262</string>
+    <string name="address">Hà Nội</string>
     <string name="age">Age: </string>
     <string name="ages_student">23</string>
     <string name="edit">Edit</string>
@@ -19,7 +19,6 @@
     <string name="cancel">Cancel</string>
     <string name="update_student">Update Student</string>
     <string name="update">Edit</string>
-
     <string name="add_success">Add success</string>
     <string name="edit_success">Edit success</string>
     <string name="delete_success">Delete success</string>

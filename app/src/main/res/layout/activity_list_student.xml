@@ -25,7 +25,7 @@
             android:drawableLeft="@drawable/ic_search"
             android:drawablePadding="@dimen/padding_micro"
             android:background="@drawable/custom_edit_search"
-            android:hint="@string/timkiem"
+            android:hint="@string/search"
             android:inputType="textCapCharacters"
             android:paddingStart="12dp"
             android:paddingLeft="12dp"
@@ -50,7 +50,7 @@
             android:layout_height="wrap_content"
             android:layout_centerInParent="true"
             android:gravity="center"
-            android:text="@string/quanlysinhvien"
+            android:text="@string/manager"
             android:textColor="#FFFFFF"
             android:textSize="18sp"
 
