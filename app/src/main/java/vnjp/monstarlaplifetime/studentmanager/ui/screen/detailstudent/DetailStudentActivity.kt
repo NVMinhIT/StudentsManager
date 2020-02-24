@@ -1,3 +1,5 @@
+@file:Suppress("DEPRECATION")
+
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent
 
 import android.content.Intent
