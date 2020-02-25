@@ -67,11 +67,7 @@ class ListStudentActivity : BaseActivity(), View.OnClickListener,
 
     private fun observableResponse() {
         viewModel.isLoading.observe(this, Observer {
-            if (it) {
-                showDialog(true)
-            } else {
-                showDialog(false)
-            }
+            showDialog(it)
         })
         viewModel.delStudent.observe(this, Observer {
             Common.showToastSuccess(R.string.delete_success)

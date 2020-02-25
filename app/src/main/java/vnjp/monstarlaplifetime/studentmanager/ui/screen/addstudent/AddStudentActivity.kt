@@ -41,13 +41,7 @@ class AddStudentActivity : BaseActivity(), View.OnClickListener {
 
     private fun observable() {
         addStudentViewModel.isLoading.observe(this, Observer {
-            if (it) {
-                if (it) {
-                    showDialog(true)
-                } else {
-                    showDialog(false)
-                }
-            }
+            showDialog(it)
         })
         addStudentViewModel.students.observe(this, Observer {
             if (it.address.isNotEmpty()) {
@@ -88,7 +82,12 @@ class AddStudentActivity : BaseActivity(), View.OnClickListener {
                     edtAddress.setError("Please Enter Address")
                 } else {
                     addStudentViewModel.addStudents(
-                        Student(edtAddress.text.toString(), edtAge.text.toString().toInt(), 1, edtPhone.text.toString(), edtName.text.toString()
+                        Student(
+                            edtAddress.text.toString(),
+                            edtAge.text.toString().toInt(),
+                            1,
+                            edtPhone.text.toString(),
+                            edtName.text.toString()
                         )
                     )
                     observable()

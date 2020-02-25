@@ -63,11 +63,7 @@ class DetailStudentActivity : BaseActivity() {
         val tvAddress = findViewById<TextView>(R.id.tvAddress)
         idStudent?.let { viewModel.getStudentById(it) }
         viewModel.isLoading.observe(this, Observer {
-            if (it) {
-                showDialog(true)
-            } else {
-                showDialog(false)
-            }
+            showDialog(it)
         })
         viewModel.isException.observe(this, Observer {
             Toast.makeText(this, it.toString(), Toast.LENGTH_LONG).show()

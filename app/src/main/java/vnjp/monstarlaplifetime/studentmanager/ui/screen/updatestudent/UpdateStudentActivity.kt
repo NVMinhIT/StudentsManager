@@ -52,13 +52,7 @@ class UpdateStudentActivity : BaseActivity() {
             )
         }
         updateStudentViewModel.isLoading.observe(this, Observer {
-            if (it) {
-                if (it) {
-                    showDialog(true)
-                } else {
-                    showDialog(false)
-                }
-            }
+            showDialog(it)
         })
         updateStudentViewModel.updateStudent.observe(this, Observer {
             if (it.address.isNotEmpty()) {
