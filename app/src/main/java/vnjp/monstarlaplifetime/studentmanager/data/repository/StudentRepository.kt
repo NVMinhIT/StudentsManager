@@ -5,24 +5,23 @@ import retrofit2.Call
 import retrofit2.Callback
 import retrofit2.Response
 import vnjp.monstarlaplifetime.studentmanager.data.api.ApiService
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 
 class StudentRepository(private val apiService: ApiService) {
 
-    fun getAllStudents(onDataLoaded: (List<StudentResponse>?) -> Unit, ex: (String?) -> Unit) {
+    fun getAllStudents(onDataLoaded: (List<Student>?) -> Unit, ex: (String?) -> Unit) {
         val response = apiService.getAllStudents()
-        response.enqueue(object : Callback<List<StudentResponse>> {
+        response.enqueue(object : Callback<List<Student>> {
             override fun onResponse(
-                call: Call<List<StudentResponse>>,
-                response: Response<List<StudentResponse>>
+                call: Call<List<Student>>,
+                response: Response<List<Student>>
             ) {
                 if (response.isSuccessful) {
                     onDataLoaded.invoke(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<List<StudentResponse>>, t: Throwable) {
+            override fun onFailure(call: Call<List<Student>>, t: Throwable) {
                 ex.invoke(t.message.toString())
             }
         })
@@ -31,21 +30,21 @@ class StudentRepository(private val apiService: ApiService) {
 
     fun getStudentById(
         id: Int,
-        onDataLoaded: (StudentResponse?) -> Unit,
+        onDataLoaded: (Student?) -> Unit,
         ex: (String?) -> Unit
     ) {
         val response = apiService.getStudentById(id)
-        response.enqueue(object : Callback<StudentResponse?> {
+        response.enqueue(object : Callback<Student?> {
             override fun onResponse(
-                call: Call<StudentResponse?>,
-                response: Response<StudentResponse?>
+                call: Call<Student?>,
+                response: Response<Student?>
             ) {
                 if (response.isSuccessful) {
                     onDataLoaded.invoke(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<StudentResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<Student?>, t: Throwable) {
                 ex.invoke(t.message.toString())
             }
         })
@@ -54,21 +53,21 @@ class StudentRepository(private val apiService: ApiService) {
 
     fun addStudents(
         student: Student,
-        onDataLoaded: (StudentResponse?) -> Unit,
+        onDataLoaded: (Student?) -> Unit,
         ex: (String?) -> Unit
     ) {
         val response = apiService.addStudent(student)
-        response.enqueue(object : Callback<StudentResponse?> {
+        response.enqueue(object : Callback<Student?> {
             override fun onResponse(
-                call: Call<StudentResponse?>,
-                response: Response<StudentResponse?>
+                call: Call<Student?>,
+                response: Response<Student?>
             ) {
                 if (response.isSuccessful) {
                     onDataLoaded.invoke(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<StudentResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<Student?>, t: Throwable) {
                 ex.invoke(t.message.toString())
             }
         })
@@ -78,21 +77,21 @@ class StudentRepository(private val apiService: ApiService) {
     fun updateStudents(
         id: Int,
         student: Student,
-        onDataLoaded: (StudentResponse?) -> Unit,
+        onDataLoaded: (Student?) -> Unit,
         ex: (String?) -> Unit
     ) {
         val response = apiService.updateStudentById(id, student)
-        response.enqueue(object : Callback<StudentResponse?> {
+        response.enqueue(object : Callback<Student?> {
             override fun onResponse(
-                call: Call<StudentResponse?>,
-                response: Response<StudentResponse?>
+                call: Call<Student?>,
+                response: Response<Student?>
             ) {
                 if (response.isSuccessful) {
                     onDataLoaded.invoke(response.body())
                 }
             }
 
-            override fun onFailure(call: Call<StudentResponse?>, t: Throwable) {
+            override fun onFailure(call: Call<Student?>, t: Throwable) {
                 ex.invoke(t.message.toString())
             }
         })

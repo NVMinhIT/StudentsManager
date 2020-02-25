@@ -1,7 +1,4 @@
-@file:Suppress("DEPRECATION")
-
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent
-
 import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
@@ -18,7 +15,7 @@ import com.google.android.material.floatingactionbutton.FloatingActionButton
 import kotlinx.android.synthetic.main.activity_list_student.*
 import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.addstudent.AddStudentActivity
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent.DetailStudentActivity
 import vnjp.monstarlaplifetime.studentmanager.util.Common
@@ -136,11 +133,11 @@ class ListStudentActivity : BaseActivity(), View.OnClickListener,
         }
     }
 
-    override fun onLongClickItemStudent(student: StudentResponse?) {
+    override fun onLongClickItemStudent(student: Student?) {
         showDialogDelete(student)
     }
 
-    private fun showDialogDelete(student: StudentResponse?) {
+    private fun showDialogDelete(student: Student?) {
         val dialog = AlertDialog.Builder(this, R.style.AlertDialog)
         dialog.setMessage("You want delete ${student?.name}?")
         dialog.setPositiveButton(

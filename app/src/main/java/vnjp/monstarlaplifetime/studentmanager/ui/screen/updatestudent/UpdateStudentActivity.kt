@@ -1,5 +1,3 @@
-@file:Suppress("DEPRECATION")
-
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.updatestudent
 
 import android.os.Build
@@ -13,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_update_student.*
 import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent.DetailStudentActivity
 import vnjp.monstarlaplifetime.studentmanager.util.Common
 
@@ -42,9 +40,11 @@ class UpdateStudentActivity : BaseActivity() {
     private fun observablesUpdate() {
         idNew?.let {
             Student(
-                edtUpdateAddress.text.toString(),
-                edtUpdateAge.text.toString().toInt(), it, edtUpdatePhone.text.toString(),
-                edtUpdateName.text.toString()
+                it,
+                edtUpdateName.text.toString(),
+                edtUpdateAge.text.toString().toInt(), edtUpdateAddress.text.toString(),
+                edtUpdatePhone.text.toString()
+
             )
         }?.let {
             updateStudentViewModel.updateStudent(
