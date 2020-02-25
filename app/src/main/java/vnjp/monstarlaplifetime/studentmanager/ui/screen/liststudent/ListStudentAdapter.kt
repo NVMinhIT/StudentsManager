@@ -6,14 +6,14 @@ import android.view.ViewGroup
 import android.widget.TextView
 import androidx.recyclerview.widget.RecyclerView
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 import vnjp.monstarlaplifetime.studentmanager.util.Common
 class ListStudentAdapter(
     private val context: Context, private val itemClick: (Int) -> Unit
 ) : RecyclerView.Adapter<ListStudentAdapter.MyViewHolder>() {
-    private var listStudent: List<StudentResponse> = emptyList()
+    private var listStudent: List<Student> = emptyList()
     private var longClickItemListener: ILongClickItemListener? = null
-    fun setListStudent(list: List<StudentResponse>) {
+    fun setListStudent(list: List<Student>) {
         listStudent = list
         notifyDataSetChanged()
     }
@@ -32,7 +32,7 @@ class ListStudentAdapter(
         return listStudent.size
     }
 
-    fun getPosition(position: Int): StudentResponse {
+    fun getPosition(position: Int): Student {
         return listStudent.get(position)
 
     }
@@ -42,8 +42,8 @@ class ListStudentAdapter(
                 setListStudent(it)
             }
         } else {
-            val orderList: ArrayList<StudentResponse> =
-                java.util.ArrayList<StudentResponse>()
+            val orderList: ArrayList<Student> =
+                java.util.ArrayList<Student>()
             for (item in this.listStudent) {
                 if (item.name.contains(name)) {
                     orderList.add(item)
@@ -69,7 +69,7 @@ class ListStudentAdapter(
             }
         }
 
-        fun bindData(student: StudentResponse) {
+        fun bindData(student: Student) {
             nameStudent.text = student.name
             ageStudent.text = student.age.toString()
             this.itemView.setOnLongClickListener {
@@ -83,7 +83,7 @@ class ListStudentAdapter(
 
     interface ILongClickItemListener {
         fun onLongClickItemStudent(
-            student: StudentResponse?
+            student: Student?
         )
     }
 }

@@ -1,7 +1,4 @@
-@file:Suppress("DEPRECATION")
-
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.detailstudent
-
 import android.content.Intent
 import android.os.Build
 import android.os.Bundle
@@ -14,7 +11,7 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProviders
 import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.liststudent.ListStudentActivity
 import vnjp.monstarlaplifetime.studentmanager.ui.screen.updatestudent.UpdateStudentActivity
 
@@ -24,7 +21,7 @@ class DetailStudentActivity : BaseActivity() {
     private var idStudent: Int? = null
     private lateinit var viewModel: DetailStudentViewModel
     private var idUpdate: Int? = null
-    private lateinit var studentResponse: StudentResponse
+    private lateinit var student: Student
     private lateinit var imbEdit: ImageButton
 
     companion object {
@@ -74,12 +71,12 @@ class DetailStudentActivity : BaseActivity() {
             tvPhone.text = it.mobile
             tvAddress.text = it.address
             idUpdate = it.id
-            studentResponse = it
+            student = it
 
         })
         imbEdit.setOnClickListener {
             val intent = Intent(this, UpdateStudentActivity::class.java)
-            intent.putExtra(ID_UPDATE, studentResponse.id)
+            intent.putExtra(ID_UPDATE, student.id)
             startActivity(intent)
             finish()
         }

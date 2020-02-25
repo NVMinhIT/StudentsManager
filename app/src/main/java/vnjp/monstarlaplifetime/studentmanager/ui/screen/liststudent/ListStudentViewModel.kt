@@ -5,15 +5,15 @@ import androidx.lifecycle.MutableLiveData
 import androidx.lifecycle.ViewModel
 import vnjp.monstarlaplifetime.studentmanager.R
 import vnjp.monstarlaplifetime.studentmanager.data.api.ServiceRetrofit
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.StudentResponse
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 import vnjp.monstarlaplifetime.studentmanager.data.repository.StudentRepository
 import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 class ListStudentViewModel : ViewModel() {
     private val apiService = ServiceRetrofit().getService()
     private val repository = StudentRepository(apiService)
-    private val _students = MutableLiveData<List<StudentResponse>>()
-    val students: LiveData<List<StudentResponse>> = _students
+    private val _students = MutableLiveData<List<Student>>()
+    val students: LiveData<List<Student>> = _students
     private val _isLoading = MutableLiveData<Boolean>()
     val isLoading: LiveData<Boolean> = _isLoading
     private val _isException = MutableLiveData<String>()

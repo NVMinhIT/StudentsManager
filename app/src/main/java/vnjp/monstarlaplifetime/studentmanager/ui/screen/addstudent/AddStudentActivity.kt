@@ -1,7 +1,4 @@
-@file:Suppress("DEPRECATION")
-
 package vnjp.monstarlaplifetime.studentmanager.ui.screen.addstudent
-
 import android.os.Build
 import android.os.Bundle
 import android.view.View
@@ -14,7 +11,7 @@ import androidx.lifecycle.ViewModelProviders
 import kotlinx.android.synthetic.main.activity_add_student.*
 import vnjp.monstarlablifetime.mochichat.data.base.BaseActivity
 import vnjp.monstarlaplifetime.studentmanager.R
-import vnjp.monstarlaplifetime.studentmanager.data.reponse.Student
+import vnjp.monstarlaplifetime.studentmanager.data.response.Student
 import vnjp.monstarlaplifetime.studentmanager.util.Common
 
 @Suppress("DEPRECATION")
@@ -83,11 +80,12 @@ class AddStudentActivity : BaseActivity(), View.OnClickListener {
                 } else {
                     addStudentViewModel.addStudents(
                         Student(
-                            edtAddress.text.toString(),
-                            edtAge.text.toString().toInt(),
                             1,
-                            edtPhone.text.toString(),
-                            edtName.text.toString()
+                            edtName.text.toString(),
+                            edtAge.text.toString().toInt(),
+                            edtAddress.text.toString(),
+                            edtPhone.text.toString()
+
                         )
                     )
                     observable()
