@@ -24,17 +24,17 @@ open class BaseActivity : AppCompatActivity() {
 
     private fun baseInit() {
         mDialog = ProgressDialog(this, R.style.AppCompatAlertDialogStyle)
-        mDialog!!.setMessage(loadingMsg)
+        mDialog?.setMessage(loadingMsg)
     }
 
     fun showDialog(isShow: Boolean) {
         if (isShow) {
             if (mDialog != null && !mDialog!!.isShowing) {
-                mDialog!!.show()
+                mDialog?.show()
             }
         } else {
             if (mDialog != null && mDialog!!.isShowing) {
-                mDialog!!.dismiss()
+                mDialog?.dismiss()
             }
         }
     }
